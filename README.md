@@ -1,4 +1,4 @@
-# SaaS App - LMS with Next.js, Supabase & Payments
+# ChanakYA App - LMS with Next.js, Supabase & Payments
 
 ## Tech Stack
 
