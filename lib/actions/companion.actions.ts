@@ -76,9 +76,9 @@ export const getRecentSessions = async (limit = 10) => {
         .order('created_at', { ascending: false })
         .limit(limit)
 
-    if(error) throw new Error(error.message);
+    // if(error) throw new Error(error.message);
 
-    return data.map(({ companions }) => companions);
+    return (data ?? []).map(({ companions }) => companions);
 }
 
 export const getUserSessions = async (userId: string, limit = 10) => {
@@ -92,7 +92,7 @@ export const getUserSessions = async (userId: string, limit = 10) => {
 
     if(error) throw new Error(error.message);
 
-    return data.map(({ companions }) => companions);
+    return (data ?? []).map(({ companions }) => companions);
 }
 
 export const getUserCompanions = async (userId: string) => {
@@ -176,11 +176,11 @@ export const getBookmarkedCompanions = async (userId: string) => {
   const supabase = await createSupabaseClient();
   const { data, error } = await supabase
     .from("bookmarks")
-    .select(`companions:companion_id (*)`) // Notice the (*) to get all the companion data
+    .select(`companions:companion_id (*)`)
     .eq("user_id", userId);
   if (error) {
     throw new Error(error.message);
   }
   // We don't need the bookmarks data, so we return only the companions
-  return data.map(({ companions }) => companions);
+  return (data ?? []).map(({ companions }) => companions);
 };
